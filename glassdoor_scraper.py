@@ -1,6 +1,7 @@
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 from selenium import webdriver
-import time
+import time, math
+from selenium.webdriver import ActionChains
 import pandas as pd
 
 def get_jobs(keyword, num_jobs, verbose, path, slp_time):
@@ -27,7 +28,6 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
         #Let the page load. Change this number based on your internet speed.
         #Or, wait until the webpage is loaded, instead of hardcoding it.
         time.sleep(slp_time)
-        time.sleep(.1)
         
         #Going through each job in this page
         job_buttons = driver.find_elements_by_class_name("react-job-listing")  #looks like this works. Buy since I don't understand what I'm doing....
@@ -150,7 +150,12 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
 
         #Clicking on the "next page" button
         try:
-            driver.find_element_by_xpath('.//a[@data-test="pagination-next"]').click()
+            css_selector = "#MainCol"  # must point to the element with the scroll bar (not the element alone) - watch the video for details.
+            scrolling_step = 3000  # In pixels
+            #height = driver.execute_script("return document.querySelector('" + css_selector + "').scrollHeight")  # height (in pixels) for scrolling
+            driver.execute_script("document.querySelector('" + css_selector + "').scrollTop = " + str(scrolling_step))
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="MainCol"]/div[2]/div/div[1]/button[7]').click()
         except NoSuchElementException:
             print("Scraping terminated before reaching target number of jobs. Needed {}, got {}.".format(num_jobs, len(jobs)))
             break
