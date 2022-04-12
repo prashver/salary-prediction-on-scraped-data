@@ -1,7 +1,6 @@
-from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
+from selenium.common.exceptions import NoSuchElementException
 from selenium import webdriver
-import time, math
-from selenium.webdriver import ActionChains
+import time
 import pandas as pd
 
 def get_jobs(keyword, num_jobs, verbose, path, slp_time):
