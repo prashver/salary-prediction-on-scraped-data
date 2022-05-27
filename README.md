@@ -57,9 +57,9 @@ I tried three different models and evaluated them using Mean Absolute Error. Tho
 
 # Model performance
 The Random Forest model far outperformed the other approaches on the test and validation sets.
-- Random Forest : MAE = 11.22
-- Linear Regression: MAE = 18.86
-- Ridge Regression: MAE = 19.67
+- Linear Regression: MAE = 18.23
+- Lasso Regression: MAE = 19.61
+- - Random Forest : MAE = 11.09
 
 # Productionization
 _In Progress_
